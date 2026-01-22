@@ -3,21 +3,17 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { 
-  Bars3Icon, 
-  XMarkIcon, 
+import {
+  Bars3Icon,
+  XMarkIcon,
   PhoneIcon,
   UserPlusIcon,
-  SparklesIcon,
   ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
-// Custom Mosque Icon Component (from user SVG)
-const MosqueIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 -64 640 640" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 480c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V160H0v320zm579.16-192c17.86-17.39 28.84-37.34 28.84-58.91 0-52.86-41.79-93.79-87.92-122.9-41.94-26.47-80.63-57.77-111.96-96.22L400 0l-8.12 9.97c-31.33 38.45-70.01 69.76-111.96 96.22C233.79 135.3 192 176.23 192 229.09c0 21.57 10.98 41.52 28.84 58.91h358.32zM608 320H192c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h32v-64c0-17.67 14.33-32 32-32s32 14.33 32 32v64h64v-72c0-48 48-72 48-72s48 24 48 72v72h64v-64c0-17.67 14.33-32 32-32s32 14.33 32 32v64h32c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32zM64 0S0 32 0 96v32h128V96c0-64-64-96-64-96z"/>
-  </svg>
-);
+import Image from 'next/image';
+
+import logo from '../../public/logo.png';
 
 
 export default function Header() {
@@ -42,15 +38,19 @@ export default function Header() {
   }, []);
 
   const mainNavigation = [
-    { name: t('home'), href: `/${locale}` },
-    { name: t('whyIslam'), href: `/${locale}/under-development` },
     { name: t('howToConvert'), href: `/${locale}/under-development` },
+    { name: t('bibaho'), href: `/${locale}/under-development` },
+    { name: t('shelter'), href: `/${locale}/under-development` },
+    { name: t('deenShikkha'), href: `/${locale}/under-development` },
+    { name: t('donation'), href: `/${locale}/donation` },
   ];
 
   const resourcesNavigation = [
+    { name: t('entrepreneurs'), href: `/${locale}/under-development` },
     { name: t('newMuslimGuide'), href: `/${locale}/under-development` },
-    { name: t('challenges'), href: `/${locale}/under-development` },
+    { name: t('volunteer'), href: `/${locale}/under-development` },
     { name: t('projects'), href: `/${locale}/under-development` },
+    { name: t('events'), href: `/${locale}/under-development` },
   ];
 
   const aboutNavigation = [
@@ -77,9 +77,9 @@ export default function Header() {
                 </div>
                 <div>
                   <span className="font-semibold text-white">
-                    {locale === 'bn' ? 'জরুরি সাহায্য:' : 'Emergency Help:'} 
+                    {locale === 'bn' ? 'হটলাইন:' : 'Hot Line:'}
                   </span>
-                  <span className="ml-2 font-bold text-white">01517844979</span>
+                  <span className="ml-2 font-bold text-white">01861886162</span>
                 </div>
               </div>
             </div>
@@ -104,21 +104,15 @@ export default function Header() {
             {/* Logo - Fixed Colors */}
             <Link href={`/${locale}`} className="flex items-center space-x-3 group">
               <div className="relative">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105" style={{ background: `linear-gradient(135deg, var(--color-islamic-primary), var(--color-islamic-secondary))` }}>
-                  <MosqueIcon className="w-6 h-6 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-islamic-accent)' }}>
-                  <SparklesIcon className="w-2.5 h-2.5" style={{ color: 'var(--color-islamic-dark)' }} />
-                </div>
+                <Image src={logo} alt="new muslim aid logo" width={60} height={60} className='rounded-xl' loading="lazy" />
               </div>
               <div>
                 <h1 className="text-xl lg:text-2xl font-bold leading-tight text-gray-900 transition-colors duration-300 group-hover:text-green-700">
                   {locale === 'bn' ? 'নিউমুসলিম এইড ফাউন্ডেশন' : 'New Muslim Aid Foundation'}
                 </h1>
-                <p className="text-xs text-gray-500 font-medium flex items-center">
-                  <span>Bangladesh</span>
+                <p className="text-xs text-gray-500 font-medium">
                   <span className="ml-1 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--color-islamic-primary)' }}></span>
-                  <span className="ml-1 text-xs">{locale === 'bn' ? 'বিশ্বস্ত' : 'Trusted'}</span>
+                  <span className="text-xs">{locale === 'bn' ? 'সত্যের পথে সহযোগী হই, জান্নাতের পথে এগিয়ে যাই' : 'Let us unite on the path of truth and move forward towards Jannah'}</span>
                 </p>
               </div>
             </Link>
@@ -130,7 +124,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="px-3 py-2 text-gray-700 hover:text-green-700 font-medium transition-all duration-200 rounded-lg hover:bg-green-50"
+                  className="px-[6px] py-2 text-gray-700 hover:text-green-700 font-medium transition-all duration-200 rounded-lg hover:bg-green-50"
                 >
                   {item.name}
                 </Link>
@@ -156,7 +150,7 @@ export default function Header() {
                   <span>{locale === 'bn' ? 'আরও দেখুন' : 'More'}</span>
                   <ChevronDownIcon className={`w-4 h-4 ml-1 text-gray-700 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
-                
+
                 {isDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
                     {resourcesNavigation.map((item) => (
@@ -184,7 +178,7 @@ export default function Header() {
                 style={{ background: `linear-gradient(135deg, var(--color-islamic-primary), var(--color-islamic-secondary))` }}
               >
                 <UserPlusIcon className="w-4 h-4 mr-2 text-white" />
-                <span className="text-white">{locale === 'bn' ? 'দায়ী হতে চান?' : 'Become a Daaee'}</span>
+                <span className="text-white">{locale === 'bn' ? 'ইসলাম গ্রহণ কেন জরুরি?' : 'Why accepting Islam is essential?'}</span>
               </a>
 
               {/* Mobile menu button */}
@@ -228,7 +222,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <UserPlusIcon className="w-4 h-4 mr-2 text-white" />
-                  <span className="text-white">{locale === 'bn' ? 'দায়ী হতে চান?' : 'Volunteer'}</span>
+                  <span className="text-white">{locale === 'bn' ? 'ইসলাম গ্রহণ কেন জরুরি?' : 'Why accepting Islam is essential?'}</span>
                 </a>
               </div>
             </nav>

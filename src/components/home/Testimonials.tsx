@@ -27,7 +27,7 @@ export default function Testimonials() {
       name: locale === 'bn' ? 'ফাতিমা খাতুন' : 'Fatima Khatun',
       location: locale === 'bn' ? 'চট্টগ্রাম, বাংলাদেশ' : 'Chittagong, Bangladesh',
       content: locale === 'bn'
-        ? 'আমি যখন ইসলাম গ্রহণ করি, তখন অনেক চ্যালেঞ্জের সম্মুখীন হয়েছিলাম। কিন্তু এই সংস্থার দায়ীরা আমাকে প্রতিটি পদক্ষেপে সাহায্য করেছেন।'
+        ? 'আমি যখন ইসলাম গ্রহণ করি, তখন অনেক চ্যালেঞ্জের সম্মুখীন হয়েছিলাম। কিন্তু এই সংস্থার দ্বায়ীরা আমাকে প্রতিটি পদক্ষেপে সাহায্য করেছেন।'
         : 'When I embraced Islam, I faced many challenges. But the volunteers of this organization helped me at every step.',
       rating: 5,
       isAnonymous: false,

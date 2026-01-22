@@ -1,15 +1,21 @@
 {
   "navigation": {
-    "home": "Home",
-    "whyIslam": "Why Islam",
-    "howToConvert": "How to Convert",
-    "newMuslimGuide": "New Muslim Guide",
-    "challenges": "Challenges",
-    "projects": "Ongoing Projects",
     "about": "About Us",
+    "bibaho": "Marriage Assistance",
+    "challenges": "Challenges",
     "contact": "Contact",
+    "deenShikkha": "Islamic Education",
+    "donation": "Donation",
+    "emergency": "Emergency Support",
+    "entrepreneurs": "New Muslim Entrepreneurs",
+    "events": "Events",
+    "shelter": "Shelter Project",
+    "howToConvert": "How to Convert",
+    "home": "Home",
+    "projects": "Ongoing Projects",
+    "newMuslimGuide": "New Muslim Guide",
     "volunteer": "Become a Volunteer",
-    "emergency": "Emergency Support"
+    "whyIslam": "Why is accepting Islam essential?"
   },
   "home": {
     "heroTitle": "New Muslim Support in Bangladesh",
@@ -23,7 +29,7 @@
     "navigationSubtitle": "Choose the section that best fits your needs and get the support you deserve",
     "cards": {
       "whyIslam": {
-        "title": "Why Islam?",
+        "title": "Why is accepting Islam essential??",
         "description": "Learn about the core principles of Islam and its beautiful teachings"
       },
       "howToConvert": {
@@ -53,6 +59,38 @@
       "volunteer": {
         "title": "Volunteer",
         "description": "Join our team and help support new Muslims"
+      },
+      "legalAssist": {
+        "title": "Legal Assistance",
+        "description": "Get legal advice and support"
+      },
+      "affidavit": {
+        "title": "Affidavit",
+        "description": "Prepare an affidavit for embracing Islam"
+      },
+      "renameCertificate": {
+        "title": "Rename Certificates",
+        "description": "Get assistance for renaming certificates"
+      },
+      "shelter": {
+        "title": "Safe Shelter",
+        "description": "Provide safe shelter for new Muslims"
+      },
+      "securityEnsure": {
+        "title": "Security Assurance",
+        "description": "Ensure your safety after accepting Islam"
+      },
+      "gurdian": {
+        "title": "Religious Guardian for New Muslims", 
+        "description": "Get help as a religious guardian for new Muslims"
+      },
+      "bibaho": {
+        "title": "Marriage Assistance",
+        "description": "Get marriage-related assistance for new Muslims"
+      },
+      "deenShikkha": {
+        "title": "Islamic Education",
+        "description": "Get religious education and training for new Muslims"
       }
     },
     "stats": {
@@ -72,7 +110,7 @@
     "hours": "Hours",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "whyIslam": "Why Islam",
+    "whyIslam": "Why is accepting Islam essential?",
     "howToConvert": "How to Convert",
     "newMuslimGuide": "New Muslim Guide",
     "challenges": "Challenges",
@@ -81,7 +119,7 @@
     "about": "About Us"
   },
   "whyIslam": {
-    "title": "Why Islam?",
+    "title": "Why is accepting Islam essential??",
     "subtitle": "Learn about the core principles of Islam and its beautiful teachings",
     "coreBeliefs": "Core Beliefs",
     "benefits": "Benefits",

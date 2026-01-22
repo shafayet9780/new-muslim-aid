@@ -12,12 +12,16 @@ import {
   PhoneIcon,
   HandRaisedIcon,
   ArrowRightIcon,
-  SparklesIcon
+  SparklesIcon,
+  PencilSquareIcon
 } from '@heroicons/react/24/outline';
+
+import {HomeModernIcon} from '@heroicons/react/24/solid'
 
 export default function NavigationCards() {
   const locale = useLocale();
   const t = useTranslations('home');
+  
 
   const cards = [
     {
@@ -106,12 +110,100 @@ export default function NavigationCards() {
       description: t('cards.volunteer.description'),
       href: `/${locale}/under-development`,
       icon: HandRaisedIcon,
-      gradient: 'from-islamic-primary to-islamic-secondary',
-      bgGradient: 'from-islamic-primary/5 to-islamic-secondary/5',
-      borderColor: 'border-islamic-primary/20',
-      hoverShadow: 'hover:shadow-islamic-primary/25',
+      gradient: 'from-green-500 to-pink-500',
+      bgGradient: 'from-green-50 to-pink-50',
+      borderColor: 'border-green-500/20',
+      hoverShadow: 'hover:shadow-green-500/25',
       featured: true
-    }
+    },
+   { 
+    id:'legalAssist',
+    title: t('cards.legalAssist.title'),
+    description: t('cards.legalAssist.description'),
+    href: `/${locale}/under-development`,
+    icon: ShieldCheckIcon,
+    gradient: 'from-yellow-500 to-amber-500',
+    bgGradient: 'from-yellow-50 to-amber-50', 
+    borderColor: 'border-green-500/20',
+    hoverShadow: 'hover:shadow-yellow-500/25',
+  },
+  {
+    id:'affidavit',
+    title: t('cards.affidavit.title'),
+    description: t('cards.affidavit.description'),
+    href: `/${locale}/under-development`,
+    icon: BookOpenIcon,
+    gradient: 'from-pink-500 to-purple-500',
+    bgGradient: 'from-pink-50 to-purple-50',
+    borderColor: 'border-pink-500/20',
+    hoverShadow: 'hover:shadow-pink-500/25',
+  },
+  {
+    id:'renameCertificate',
+    title: t('cards.renameCertificate.title'),
+    description: t('cards.renameCertificate.description'),
+    href: `/${locale}/under-development`,
+    icon: PencilSquareIcon,
+    gradient: 'from-green-500 to-emerald-500',
+    bgGradient: 'from-green-50 to-emerald-50',
+    borderColor: 'border-green-500/20',
+    hoverShadow: 'hover:shadow-green-500/25',
+  },
+  {
+    id:'shelter',
+    title: t('cards.shelter.title'),
+    description: t('cards.shelter.description'),
+    href: `/${locale}/under-development`,
+    icon: HomeModernIcon,
+    gradient: 'from-blue-500 to-cyan-500',
+    bgGradient: 'from-blue-50 to-cyan-50',
+    borderColor: 'border-blue-500/20',
+    hoverShadow: 'hover:shadow-blue-500/25',
+  },
+  {
+    id:'securityEnsure',
+    title: t('cards.securityEnsure.title'),
+    description: t('cards.securityEnsure.description'),
+    href: `/${locale}/under-development`,
+    icon: ShieldCheckIcon,
+    gradient: 'from-red-500 to-yellow-500',
+    bgGradient: 'from-red-50 to-yellow-50',
+    borderColor: 'border-red-500/20',
+    hoverShadow: 'hover:shadow-red-500/25',
+  },
+  {
+    id:'gurdian',
+    title: t('cards.gurdian.title'),
+    description: t('cards.gurdian.description'),
+    href: `/${locale}/under-development`,
+    icon: UserGroupIcon,
+    gradient: 'from-purple-500 to-pink-500',
+    bgGradient: 'from-purple-50 to-pink-50',
+    borderColor: 'border-purple-500/20',
+    hoverShadow: 'hover:shadow-purple-500/25',
+  },
+  {
+    id:'bibaho',
+    title: t('cards.bibaho.title'),
+    description: t('cards.bibaho.description'),
+    href: `/${locale}/under-development`,
+    icon: HeartIcon,
+    gradient: 'from-emerald-500 to-green-500',
+    bgGradient: 'from-emerald-50 to-green-50',
+    borderColor: 'border-emerald-500/20',
+  },
+  {
+    id:'deenShikkha',
+    title: t('cards.deenShikkha.title'),
+    description: t('cards.deenShikkha.description'),
+    href: `/${locale}/under-development`,
+    icon: BookOpenIcon,
+    gradient: 'from-indigo-500 to-blue-500',
+    bgGradient: 'from-indigo-50 to-blue-50',
+    borderColor: 'border-indigo-500/20',
+  }
+
+
   ];
 
   return (
@@ -225,7 +317,7 @@ export default function NavigationCards() {
                 href={`/${locale}/under-development`}
                 className="bg-white/90 backdrop-blur-sm border-2 border-green-300 hover:border-green-500 text-green-700 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                <span className="text-green-700">{locale === 'bn' ? 'দায়ী হতে চান?' : 'Join Our Team'}</span>
+                <span className="text-green-700">{locale === 'bn' ? 'ইসলাম গ্রহণ কেন জরুরি?' : 'Why accepting Islam is essential?'}</span>
               </Link>
             </div>
           </div>

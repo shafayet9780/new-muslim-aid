@@ -28,7 +28,7 @@ export default function ContactPage() {
     {
       icon: PhoneIcon,
       title: locale === "bn" ? "ফোন" : "Phone",
-      value: "01517844979",
+      value: "01861886162",
       description:
         locale === "bn" ? "২৪/৭ জরুরি সহায়তা" : "24/7 Emergency Support",
     },
@@ -311,7 +311,7 @@ export default function ContactPage() {
                       {locale === 'bn' ? 'শিক্ষামূলক প্রশ্ন' : 'Educational Questions'}
                     </option>
                     <option value="volunteer">
-                      {locale === 'bn' ? 'দায়ী হতে চান' : 'Want to Volunteer'}
+                      {locale === 'bn' ? 'দ্বায়ী হতে চান' : 'Want to Volunteer'}
                     </option>
                     <option value="other">
                       {locale === 'bn' ? 'অন্যান্য' : 'Other'}
@@ -357,7 +357,7 @@ export default function ContactPage() {
                 ? "আমাদের জরুরি হটলাইনে কল করুন। আমরা ২৪/৭ আপনার পাশে আছি।"
                 : "Call our emergency hotline. We are available 24/7."}
             </p>
-            <div className="text-4xl font-bold">01517844979</div>
+            <div className="text-4xl font-bold">01861886162</div>
           </div>
         </div>
       </div>
