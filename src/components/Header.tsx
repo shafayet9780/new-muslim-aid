@@ -48,14 +48,14 @@ export default function Header() {
   const resourcesNavigation = [
     { name: t('entrepreneurs'), href: `/${locale}/under-development` },
     { name: t('newMuslimGuide'), href: `/${locale}/under-development` },
-    { name: t('volunteer'), href: `/${locale}/under-development` },
+    { name: t('volunteer'), href: `https://tiny.cc/volunteer` },
     { name: t('projects'), href: `/${locale}/under-development` },
     { name: t('events'), href: `/${locale}/under-development` },
+    { name: t('contact'), href: `/${locale}/contact` },
   ];
 
   const aboutNavigation = [
-    { name: t('about'), href: `/${locale}/under-development` },
-    { name: t('contact'), href: `/${locale}/contact` },
+    { name: t('about'), href: `/${locale}/under-development` }
   ];
 
   const allNavigation = [

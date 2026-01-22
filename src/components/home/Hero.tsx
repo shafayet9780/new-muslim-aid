@@ -9,7 +9,8 @@ import {
   CheckCircleIcon,
   ArrowRightIcon,
   ShieldCheckIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  HeartIcon
 } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 
@@ -90,7 +91,7 @@ export default function Hero() {
 
               <div className='hidden md:block'>
                 <a
-                  href="https://docs.google.com/forms/u/0/d/1SuoAiAINk5s2KauBBPRRyye7sezcKmxh3Jm14ahiDjA/edit?fromCopy=true&ct=2"
+                  href="https://tiny.cc/newmuslimform"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group bg-white/95 backdrop-blur-sm hover:bg-white border-2 border-green-300 hover:border-green-500 text-green-700 px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
@@ -171,6 +172,28 @@ export default function Hero() {
                   <div className="text-sm text-gray-500 font-semibold uppercase tracking-wider">{locale === 'bn' ? 'সেবা' : 'Service'}</div>
                 </div>
               </div>
+              <div className="text-center ">
+                {/* Donation Button */}
+                <Link
+                  href={`/${locale}/donation`}
+                  className="group flex md:inline-flex bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white w-full md:w-auto md:px-28 py-5 rounded-2xl font-bold text-2xl transition-all duration-300 items-center justify-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1 mb-6"
+                >
+                  <HeartIcon className="w-7 h-7 mr-4 text-white group-hover:scale-110 transition-transform duration-300" />
+                  <span>{locale === 'bn' ? 'দান করুন' : 'Donate Now'}</span>
+                </Link>
+
+                <div className='block md:hidden mb-8'>
+                  <a
+                    href="https://docs.google.com/forms/u/0/d/1SuoAiAINk5s2KauBBPRRyye7sezcKmxh3Jm14ahiDjA/edit?fromCopy=true&ct=2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white/95 backdrop-blur-sm hover:bg-white border-2 border-green-300 hover:border-green-500 text-green-700 px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+                  >
+                    <UserGroupIcon className="w-7 h-7 mr-4 text-green-700 group-hover:scale-110 transition-transform duration-300" />
+                    <span className="text-green-700">{locale === 'bn' ? 'দ্বীনি পরামর্শ প্রয়োজন?' : 'Religious guidance is needed?'}</span>
+                  </a>
+                </div>
+              </div>
 
               {/* Enhanced Emergency Contact */}
               <div className="bg-gradient-to-r from-red-50 to-red-100/50 border-2 border-red-200/50 rounded-2xl p-8 mb-8 relative overflow-hidden">
@@ -189,19 +212,6 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-
-              <div className='block md:hidden'>
-                <a
-                  href="https://docs.google.com/forms/u/0/d/1SuoAiAINk5s2KauBBPRRyye7sezcKmxh3Jm14ahiDjA/edit?fromCopy=true&ct=2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-white/95 backdrop-blur-sm hover:bg-white border-2 border-green-300 hover:border-green-500 text-green-700 px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
-                >
-                  <UserGroupIcon className="w-7 h-7 mr-4 text-green-700 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-green-700">{locale === 'bn' ? 'দ্বীনি পরামর্শ প্রয়োজন?' : 'Religious guidance is needed?'}</span>
-                </a>
-              </div>
-
               {/* Enhanced Security Badge */}
               <div className="flex items-center justify-center pt-6 border-t border-gray-100">
                 <div className="flex items-center space-x-3 bg-green-50 rounded-full px-6 py-3">
@@ -236,6 +246,6 @@ export default function Hero() {
         </div>
       </div>
 
-    </section>
+    </section >
   );
 } 
