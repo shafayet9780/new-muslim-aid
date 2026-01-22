@@ -141,7 +141,7 @@ export default function Hero() {
               {/* Header - Fixed Colors */}
               <div className="text-center mb-10 relative z-10">
                 <div className="relative inline-block mb-8">
-                  <Image src={logo} alt="new muslim aid logo" width={100} height={100} className='rounded-xl' loading="lazy" />
+                  <Image src={logo} alt="new muslim aid logo" width={100} height={100} className='rounded-xl' />
 
                 </div>
                 <h3 className="text-4xl font-bold text-gray-900 mb-4">

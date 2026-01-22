@@ -28,7 +28,7 @@ export default function Footer() {
   const quickLinks = [
     { name: t('whyIslam'), href: `/${locale}/under-development` },
     { name: t('howToConvert'), href: `/${locale}/under-development` },
-    { name: t('newMuslimGuide'), href: `/${locale}/under-development` },
+    { name: t('newMuslimGuide'), href: `/${locale}/guidelines` },
     { name: t('challenges'), href: `/${locale}/under-development` },
   ];
 
@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Organization Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center space-x-4">
-              <Image src={logo} alt="new muslim aid logo" width={60} height={60} className='rounded-xl' loading="lazy" />
+              <Image src={logo} alt="new muslim aid logo" width={60} height={60} className='rounded-xl' />
               <div>
                 <h3 className="text-2xl font-bold text-white">
                   {locale === 'bn' ? 'নিউমুসলিম এইড ফাউন্ডেশন' : 'New Muslim Foundation'}

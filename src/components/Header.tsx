@@ -47,7 +47,7 @@ export default function Header() {
 
   const resourcesNavigation = [
     { name: t('entrepreneurs'), href: `/${locale}/under-development` },
-    { name: t('newMuslimGuide'), href: `/${locale}/under-development` },
+    { name: t('newMuslimGuide'), href: `/${locale}/guidelines` },
     { name: t('volunteer'), href: `https://tiny.cc/volunteer` },
     { name: t('projects'), href: `/${locale}/under-development` },
     { name: t('events'), href: `/${locale}/under-development` },
@@ -104,7 +104,7 @@ export default function Header() {
             {/* Logo - Fixed Colors */}
             <Link href={`/${locale}`} className="flex items-center space-x-3 group">
               <div className="relative">
-                <Image src={logo} alt="new muslim aid logo" width={60} height={60} className='rounded-xl' loading="lazy" />
+                <Image src={logo} alt="new muslim aid logo" width={60} height={60} className='rounded-xl' />
               </div>
               <div>
                 <h1 className="text-xl lg:text-2xl font-bold leading-tight text-gray-900 transition-colors duration-300 group-hover:text-green-700">
