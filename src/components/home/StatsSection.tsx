@@ -12,6 +12,8 @@ import {
   ShieldCheckIcon,
   SparklesIcon
 } from '@heroicons/react/24/outline';
+import { Stats as StatsType } from '@/lib/sanity/types';
+import { urlFor } from '@/lib/sanity';
 
 interface CounterProps {
   end: number;
@@ -52,7 +54,11 @@ function Counter({ end, duration = 2000, suffix = '', isVisible = false }: Count
   return <span>{count.toLocaleString()}{suffix}</span>;
 }
 
-export default function StatsSection() {
+interface StatsSectionProps {
+  data?: StatsType;
+}
+
+export default function StatsSection({ data }: StatsSectionProps) {
   const t = useTranslations('home.stats');
   const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
@@ -75,7 +81,8 @@ export default function StatsSection() {
     return () => observer.disconnect();
   }, []);
 
-  const stats = [
+  // Dynamic stats from CMS or fallback to static data
+  const stats = data?.statistics || [
     {
       icon: UsersIcon,
       value: 1250,
@@ -114,7 +121,8 @@ export default function StatsSection() {
     }
   ];
 
-  const achievements = [
+  // Dynamic achievements from CMS or fallback to static data
+  const achievements = data?.achievements || [
     {
       icon: TrophyIcon,
       title: locale === 'bn' ? 'জাতীয় স্বীকৃতি' : 'National Recognition',
@@ -154,19 +162,20 @@ export default function StatsSection() {
           <div className="inline-flex items-center bg-green-50 rounded-full px-6 py-3 mb-8">
             <SparklesIcon className="w-5 h-5 text-green-700 mr-2" />
             <span className="text-sm font-bold text-green-700 uppercase tracking-wider">
-              {locale === 'bn' ? 'আমাদের অর্জন' : 'Our Achievements'}
+              {data?.badgeText ? (locale === 'bn' ? data.badgeTextBn : data.badgeText) : (locale === 'bn' ? 'আমাদের অর্জন' : 'Our Achievements')}
             </span>
           </div>
           
           <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
-            {locale === 'bn' ? 'আমাদের প্রভাব' : 'Our Impact'}
+            {data?.title ? (locale === 'bn' ? data.titleBn : data.title) : (locale === 'bn' ? 'আমাদের প্রভাব' : 'Our Impact')}
           </h2>
           
           <p className="text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
-            {locale === 'bn'
-              ? 'আমরা গর্বিত যে আমরা অনেক মানুষের জীবনে ইতিবাচক পরিবর্তন আনতে পেরেছি। প্রতিদিন আমরা নতুন সাফল্যের গল্প তৈরি করছি।'
-              : 'We are proud to have made a positive impact in many people\'s lives. Every day, we create new success stories that inspire and transform communities.'
-            }
+            {data?.subtitle ? (locale === 'bn' ? data.subtitleBn : data.subtitle) : (
+              locale === 'bn'
+                ? 'আমরা গর্বিত যে আমরা অনেক মানুষের জীবনে ইতিবাচক পরিবর্তন আনতে পেরেছি। প্রতিদিন আমরা নতুন সাফল্যের গল্প তৈরি করছি।'
+                : 'We are proud to have made a positive impact in many people\'s lives. Every day, we create new success stories that inspire and transform communities.'
+            )}
           </p>
         </div>
 

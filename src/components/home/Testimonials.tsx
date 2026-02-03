@@ -3,57 +3,88 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from '@heroicons/react/24/solid';
+import { Testimonial as TestimonialType } from '@/lib/sanity/types';
+import { urlFor } from '@/lib/sanity';
+import Image from 'next/image';
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  testimonials?: TestimonialType[];
+}
+
+export default function Testimonials({ testimonials: propTestimonials }: TestimonialsProps) {
   const t = useTranslations('home');
   const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Mock testimonials data - in real app, this would come from Sanity CMS
-  const testimonials = [
+  // Use dynamic testimonials from CMS or fallback to mock data
+  const testimonials = propTestimonials || [
     {
-      id: 1,
+      _id: '1',
       name: locale === 'bn' ? 'আহমেদ রহমান' : 'Ahmed Rahman',
+      nameBn: 'আহমেদ রহমান',
       location: locale === 'bn' ? 'ঢাকা, বাংলাদেশ' : 'Dhaka, Bangladesh',
+      locationBn: 'ঢাকা, বাংলাদেশ',
       content: locale === 'bn'
         ? 'এই সংস্থার সাহায্যে আমি ইসলাম সম্পর্কে সঠিক জ্ঞান অর্জন করতে পেরেছি। তাদের গাইডেন্স এবং সহায়তা আমার জীবনে অসাধারণ পরিবর্তন এনেছে।'
         : 'With the help of this organization, I was able to gain proper knowledge about Islam. Their guidance and support brought extraordinary changes to my life.',
+      contentBn: 'এই সংস্থার সাহায্যে আমি ইসলাম সম্পর্কে সঠিক জ্ঞান অর্জন করতে পেরেছি। তাদের গাইডেন্স এবং সহায়তা আমার জীবনে অসাধারণ পরিবর্তন এনেছে।',
       rating: 5,
       isAnonymous: false,
-      conversionDate: '2023-08-15'
+      conversionDate: '2023-08-15',
+      image: null,
+      featured: false,
+      status: 'published'
     },
     {
-      id: 2,
+      _id: '2',
       name: locale === 'bn' ? 'ফাতিমা খাতুন' : 'Fatima Khatun',
+      nameBn: 'ফাতিমা খাতুন',
       location: locale === 'bn' ? 'চট্টগ্রাম, বাংলাদেশ' : 'Chittagong, Bangladesh',
+      locationBn: 'চট্টগ্রাম, বাংলাদেশ',
       content: locale === 'bn'
         ? 'আমি যখন ইসলাম গ্রহণ করি, তখন অনেক চ্যালেঞ্জের সম্মুখীন হয়েছিলাম। কিন্তু এই সংস্থার স্বেচ্ছাসেবকরা আমাকে প্রতিটি পদক্ষেপে সাহায্য করেছেন।'
         : 'When I embraced Islam, I faced many challenges. But the volunteers of this organization helped me at every step.',
+      contentBn: 'আমি যখন ইসলাম গ্রহণ করি, তখন অনেক চ্যালেঞ্জের সম্মুখীন হয়েছিলাম। কিন্তু এই সংস্থার স্বেচ্ছাসেবকরা আমাকে প্রতিটি পদক্ষেপে সাহায্য করেছেন।',
       rating: 5,
       isAnonymous: false,
-      conversionDate: '2023-11-20'
+      conversionDate: '2023-11-20',
+      image: null,
+      featured: false,
+      status: 'published'
     },
     {
-      id: 3,
+      _id: '3',
       name: locale === 'bn' ? 'নাম গোপন' : 'Anonymous',
+      nameBn: 'নাম গোপন',
       location: locale === 'bn' ? 'সিলেট, বাংলাদেশ' : 'Sylhet, Bangladesh',
+      locationBn: 'সিলেট, বাংলাদেশ',
       content: locale === 'bn'
         ? 'পারিবারিক চাপের কারণে আমি অনেক কষ্টে ছিলাম। কিন্তু এখানকার কাউন্সেলিং সেবা আমাকে মানসিকভাবে শক্তিশালী করেছে।'
         : 'I was in great distress due to family pressure. But the counseling service here made me mentally stronger.',
+      contentBn: 'পারিবারিক চাপের কারণে আমি অনেক কষ্টে ছিলাম। কিন্তু এখানকার কাউন্সেলিং সেবা আমাকে মানসিকভাবে শক্তিশালী করেছে।',
       rating: 5,
       isAnonymous: true,
-      conversionDate: '2024-01-10'
+      conversionDate: '2024-01-10',
+      image: null,
+      featured: false,
+      status: 'published'
     },
     {
-      id: 4,
+      _id: '4',
       name: locale === 'bn' ? 'মোহাম্মদ হাসান' : 'Mohammad Hasan',
+      nameBn: 'মোহাম্মদ হাসান',
       location: locale === 'bn' ? 'রাজশাহী, বাংলাদেশ' : 'Rajshahi, Bangladesh',
+      locationBn: 'রাজশাহী, বাংলাদেশ',
       content: locale === 'bn'
         ? 'এই সংস্থার মাধ্যমে আমি শুধু ইসলাম সম্পর্কে জানিনি, বরং একটি নতুন পরিবার পেয়েছি। সবাই এত ভালোবাসা দিয়েছে।'
         : 'Through this organization, I not only learned about Islam but also found a new family. Everyone gave so much love.',
+      contentBn: 'এই সংস্থার মাধ্যমে আমি শুধু ইসলাম সম্পর্কে জানিনি, বরং একটি নতুন পরিবার পেয়েছি। সবাই এত ভালোবাসা দিয়েছে।',
       rating: 5,
       isAnonymous: false,
-      conversionDate: '2023-12-05'
+      conversionDate: '2023-12-05',
+      image: null,
+      featured: false,
+      status: 'published'
     }
   ];
 
@@ -120,17 +151,17 @@ export default function Testimonials() {
 
             {/* Testimonial Text */}
             <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 italic">
-              {currentTestimonial.content}
+              {locale === 'bn' ? currentTestimonial.contentBn : currentTestimonial.content}
             </blockquote>
 
             {/* Author Info */}
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="text-xl font-bold text-islamic-primary mb-1">
-                  {currentTestimonial.name}
+                  {locale === 'bn' ? currentTestimonial.nameBn : currentTestimonial.name}
                 </h4>
                 <p className="text-gray-600 mb-2">
-                  {currentTestimonial.location}
+                  {locale === 'bn' ? currentTestimonial.locationBn : currentTestimonial.location}
                 </p>
                 <p className="text-sm text-gray-500">
                   {locale === 'bn' ? 'ইসলাম গ্রহণ: ' : 'Embraced Islam: '}
@@ -139,8 +170,20 @@ export default function Testimonials() {
               </div>
 
               {/* Avatar */}
-              <div className="w-16 h-16 bg-gradient-to-br from-islamic-primary to-islamic-secondary rounded-full flex items-center justify-center text-white text-xl font-bold">
-                {currentTestimonial.isAnonymous ? '?' : currentTestimonial.name.charAt(0)}
+              <div className="w-16 h-16 bg-gradient-to-br from-islamic-primary to-islamic-secondary rounded-full flex items-center justify-center text-white text-xl font-bold overflow-hidden">
+                {currentTestimonial.image ? (
+                  <Image
+                    src={urlFor(currentTestimonial.image).width(64).height(64).url()}
+                    alt={locale === 'bn' ? currentTestimonial.nameBn : currentTestimonial.name}
+                    width={64}
+                    height={64}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span>
+                    {currentTestimonial.isAnonymous ? '?' : (locale === 'bn' ? currentTestimonial.nameBn : currentTestimonial.name).charAt(0)}
+                  </span>
+                )}
               </div>
             </div>
           </div>

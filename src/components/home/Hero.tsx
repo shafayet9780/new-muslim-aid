@@ -13,8 +13,15 @@ import {
   SparklesIcon,
   GlobeAltIcon
 } from '@heroicons/react/24/solid';
+import { Hero as HeroType } from '@/lib/sanity/types';
+import { urlFor } from '@/lib/sanity';
+import Image from 'next/image';
 
-export default function Hero() {
+interface HeroProps {
+  data?: HeroType;
+}
+
+export default function Hero({ data }: HeroProps) {
   const locale = useLocale();
 
   return (
@@ -44,7 +51,7 @@ export default function Hero() {
                   <StarIcon className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-sm font-bold text-green-700">
-                  {locale === 'bn' ? 'বাংলাদেশের #১ ইসলামিক গাইডেন্স প্ল্যাটফর্ম' : 'Bangladesh\'s #1 Islamic Guidance Platform'}
+                  {data?.badgeText && locale === 'bn' ? data.badgeTextBn : data?.badgeText || (locale === 'bn' ? 'বাংলাদেশের #১ ইসলামিক গাইডেন্স প্ল্যাটফর্ম' : 'Bangladesh\'s #1 Islamic Guidance Platform')}
                 </span>
               </div>
             </div>
@@ -52,65 +59,89 @@ export default function Hero() {
             {/* Enhanced Main Heading - Reduced Size */}
             <div className="space-y-6">
               <h1 className="text-4xl lg:text-6xl font-black leading-[0.9] text-gray-900">
-                {locale === 'bn' ? (
-                  <>
-                    <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">বাংলাদেশে</span>
-                    <span className="block text-green-600">নতুন মুসলিমদের</span>
-                    <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">সহায়তা</span>
-                  </>
+                {data?.title ? (
+                  <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                    {locale === 'bn' ? data.titleBn : data.title}
+                  </span>
                 ) : (
-                  <>
-                    <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">New Muslim</span>
-                    <span className="block text-green-600">Aid in</span>
-                    <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Bangladesh</span>
-                  </>
+                  locale === 'bn' ? (
+                    <>
+                      <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">বাংলাদেশে</span>
+                      <span className="block text-green-600">নতুন মুসলিমদের</span>
+                      <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">সহায়তা</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">New Muslim</span>
+                      <span className="block text-green-600">Aid in</span>
+                      <span className="block bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Bangladesh</span>
+                    </>
+                  )
                 )}
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl font-light">
-                {locale === 'bn'
-                  ? 'আপনি যদি ইসলাম গ্রহণ করার কথা ভাবছেন বা সম্প্রতি ইসলাম গ্রহণ করেছেন, আমরা আপনার পাশে আছি। আমাদের বিশেষজ্ঞ দল আপনাকে সাহায্য করবে।'
-                  : 'Whether you\'re considering embracing Islam or have recently converted, we\'re here to support you every step of the way with expert guidance.'
-                }
+                {data?.subtitle ? (locale === 'bn' ? data.subtitleBn : data.subtitle) : (
+                  locale === 'bn'
+                    ? 'আপনি যদি ইসলাম গ্রহণ করার কথা ভাবছেন বা সম্প্রতি ইসলাম গ্রহণ করেছেন, আমরা আপনার পাশে আছি। আমাদের বিশেষজ্ঞ দল আপনাকে সাহায্য করবে।'
+                    : 'Whether you\'re considering embracing Islam or have recently converted, we\'re here to support you every step of the way with expert guidance.'
+                )}
               </p>
             </div>
 
             {/* Enhanced CTA Buttons - Fixed Colors */}
             <div className="flex flex-col sm:flex-row gap-8">
               <Link
-                href={`/${locale}/how-to-convert`}
+                href={data?.primaryCta?.link || `/${locale}/how-to-convert`}
                 className="group relative text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-500 flex items-center justify-center shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 overflow-hidden"
                 style={{ background: `linear-gradient(135deg, var(--color-islamic-primary), var(--color-islamic-secondary))` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                 <HeartIcon className="w-7 h-7 mr-4 text-white group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative z-10 text-white">{locale === 'bn' ? 'ইসলাম গ্রহণ করুন' : 'Embrace Islam'}</span>
+                <span className="relative z-10 text-white">
+                  {data?.primaryCta?.text ? (locale === 'bn' ? data.primaryCta.textBn : data.primaryCta.text) : (locale === 'bn' ? 'ইসলাম গ্রহণ করুন' : 'Embrace Islam')}
+                </span>
                 <ArrowRightIcon className="w-6 h-6 ml-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
               
               <Link
-                href={`/${locale}/volunteer`}
+                href={data?.secondaryCta?.link || `/${locale}/volunteer`}
                 className="group bg-white/95 backdrop-blur-sm hover:bg-white border-2 border-green-300 hover:border-green-500 text-green-700 px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
               >
                 <UserGroupIcon className="w-7 h-7 mr-4 text-green-700 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-green-700">{locale === 'bn' ? 'স্বেচ্ছাসেবক হন' : 'Become Volunteer'}</span>
+                <span className="text-green-700">
+                  {data?.secondaryCta?.text ? (locale === 'bn' ? data.secondaryCta.textBn : data.secondaryCta.text) : (locale === 'bn' ? 'স্বেচ্ছাসেবক হন' : 'Become Volunteer')}
+                </span>
               </Link>
             </div>
 
             {/* Enhanced Trust Indicators */}
             <div className="flex flex-wrap gap-8 pt-6">
-              <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
-                <CheckCircleIcon className="w-7 h-7 text-green-500" />
-                <span className="font-bold text-gray-800">{locale === 'bn' ? '১২৫০+ সাহায্যপ্রাপ্ত' : '1250+ Helped'}</span>
-              </div>
-              <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
-                <CheckCircleIcon className="w-7 h-7 text-green-500" />
-                <span className="font-bold text-gray-800">{locale === 'bn' ? '৮৫+ স্বেচ্ছাসেবক' : '85+ Volunteers'}</span>
-              </div>
-              <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
-                <CheckCircleIcon className="w-7 h-7 text-green-500" />
-                <span className="font-bold text-gray-800">{locale === 'bn' ? '২৪/৭ সেবা' : '24/7 Service'}</span>
-              </div>
+              {data?.trustIndicators ? (
+                data.trustIndicators.map((indicator, index) => (
+                  <div key={index} className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+                    <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                    <span className="font-bold text-gray-800">
+                      {indicator.value} {locale === 'bn' ? indicator.textBn : indicator.text}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+                    <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                    <span className="font-bold text-gray-800">{locale === 'bn' ? '১২৫০+ সাহায্যপ্রাপ্ত' : '1250+ Helped'}</span>
+                  </div>
+                  <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+                    <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                    <span className="font-bold text-gray-800">{locale === 'bn' ? '৮৫+ স্বেচ্ছাসেবক' : '85+ Volunteers'}</span>
+                  </div>
+                  <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+                    <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                    <span className="font-bold text-gray-800">{locale === 'bn' ? '২৪/৭ সেবা' : '24/7 Service'}</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -165,10 +196,10 @@ export default function Hero() {
                   </div>
                   <div>
                     <h4 className="font-black text-red-800 text-2xl mb-1">
-                      {locale === 'bn' ? 'জরুরি সাহায্য' : 'Emergency Help'}
+                      {data?.emergencyContact?.title ? (locale === 'bn' ? data.emergencyContact.titleBn : data.emergencyContact.title) : (locale === 'bn' ? 'জরুরি সাহায্য' : 'Emergency Help')}
                     </h4>
                     <p className="text-red-600 font-bold text-xl">
-                      {locale === 'bn' ? 'কল করুন: ০১৭XXXXXXXX' : 'Call: 017XXXXXXXX'}
+                      {data?.emergencyContact?.phone ? `কল করুন: ${data.emergencyContact.phone}` : (locale === 'bn' ? 'কল করুন: ০১৭XXXXXXXX' : 'Call: 017XXXXXXXX')}
                     </p>
                   </div>
                 </div>
