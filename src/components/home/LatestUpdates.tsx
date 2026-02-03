@@ -13,10 +13,10 @@ export default function LatestUpdates() {
     {
       id: 1,
       title: locale === 'bn' 
-        ? 'নও মুসলিমদের জন্য বেসিক দ্বীন শিক্ষার বিশেষ প্রশিক্ষণ কর্মসূচি'
+        ? 'নওমুসলিমদের জন্য বেসিক দ্বীন শিক্ষার বিশেষ প্রশিক্ষণ কর্মসূচি'
         : 'Special Training Program for New Muslims',
       // excerpt: locale === 'bn'
-      //   ? 'আমরা নও মুসলিমদের জন্য একটি বিশেষ প্রশিক্ষণ কর্মসূচি চালু করেছি যা তাদের ইসলামিক জীবনযাত্রায় সহায়তা করবে।'
+      //   ? 'আমরা নওমুসলিমদের জন্য একটি বিশেষ প্রশিক্ষণ কর্মসূচি চালু করেছি যা তাদের ইসলামিক জীবনযাত্রায় সহায়তা করবে।'
       //   : 'We have launched a special training program for new Muslims to help them in their Islamic lifestyle.',
       // date: '2024-06-10',
       // readTime: '5 মিনিট',
@@ -29,7 +29,7 @@ export default function LatestUpdates() {
         ? 'উপার্জনে অক্ষম নওমুসলিমদের ভরণপোষণ'
         : 'Special Support Program During Ramadan',
       // excerpt: locale === 'bn'
-      //   ? 'রমজান মাসে নও মুসলিমদের জন্য বিশেষ সহায়তা এবং গাইডেন্স প্রদান করা হবে।'
+      //   ? 'রমজান মাসে নওমুসলিমদের জন্য বিশেষ সহায়তা এবং গাইডেন্স প্রদান করা হবে।'
       //   : 'Special assistance and guidance will be provided for new Muslims during Ramadan.',
       // date: '2024-06-08',
       // readTime: '3 মিনিট',
@@ -42,7 +42,7 @@ export default function LatestUpdates() {
         ? 'স্বনামধন্য বিশ্ববিদ্যালয়, কলেজ, স্কুল ও মাদ্রাসাসমূহে শিক্ষারত নওমুসলিমদের নিয়মিত সহায়তা কার্যক্রম'
         : 'New Volunteer Recruitment Program',
       // excerpt: locale === 'bn'
-      //   ? 'আমরা আমাদের দলে নতুন দায়ী নিয়োগ করছি যারা নও মুসলিমদের সহায়তা করতে আগ্রহী।'
+      //   ? 'আমরা আমাদের দলে নতুন দ্বায়ী নিয়োগ করছি যারা নওমুসলিমদের সহায়তা করতে আগ্রহী।'
       //   : 'We are recruiting new volunteers to our team who are interested in helping new Muslims.',
       // date: '2024-06-05',
       // readTime: '4 মিনিট',

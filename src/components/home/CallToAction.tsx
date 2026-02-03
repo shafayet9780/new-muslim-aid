@@ -30,8 +30,8 @@ export default function CallToAction() {
       <div className="relative z-10 text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 mt-12">
           {locale === 'bn' 
-            ? 'আপনার যাত্রা শুরু করুন আজই' 
-            : 'Start Your Journey Today'
+            ? 'ইসলামের পথে যাত্রা শুরু করুন আজই' 
+            : 'Begin Your Journey to Islam Today'
           }
         </h2>
         
@@ -84,7 +84,7 @@ export default function CallToAction() {
             
             <p className="text-white/80 mb-6 leading-relaxed">
               {locale === 'bn'
-                ? 'দায়ী হয়ে অন্যদের ইসলামিক যাত্রায় সহায়তা করুন।'
+                ? 'দ্বায়ী হয়ে অন্যদের ইসলামিক যাত্রায় সহায়তা করুন।'
                 : 'Become a volunteer and help others in their Islamic journey.'
               }
             </p>

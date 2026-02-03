@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   return {
     title: locale === 'bn' 
-      ? 'বাংলাদেশে নও মুসলিমদের সহায়তা' 
+      ? 'বাংলাদেশে নওমুসলিমদের সহায়তা' 
       : 'New Muslim Support - Bangladesh',
     description: locale === 'bn'
       ? 'ইসলামে নতুন আগতদের জন্য সম্পূর্ণ গাইড এবং সহায়তা'
@@ -35,7 +35,7 @@ export async function generateMetadata({
       : 'Islam, Muslim, conversion, Bangladesh, support, guide',
     openGraph: {
       title: locale === 'bn' 
-        ? 'বাংলাদেশে নও মুসলিমদের সহায়তা' 
+        ? 'বাংলাদেশে নওমুসলিমদের সহায়তা' 
         : 'New Muslim Support - Bangladesh',
       description: locale === 'bn'
         ? 'ইসলামে নতুন আগতদের জন্য সম্পূর্ণ গাইড এবং সহায়তা'

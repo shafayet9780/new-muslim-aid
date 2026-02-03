@@ -21,10 +21,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Image optimization for Sanity
   images: {
-    domains: ['cdn.sanity.io'],
     remotePatterns: [
       {
         protocol: 'https',

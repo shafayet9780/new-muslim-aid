@@ -78,7 +78,7 @@ export default function StatsSection() {
   const stats = [
     {
       icon: UsersIcon,
-      value: 500,
+      value: 100,
       label: t('peopleHelped'),
       suffix: '+',
       gradient: 'from-blue-500 to-cyan-500',
