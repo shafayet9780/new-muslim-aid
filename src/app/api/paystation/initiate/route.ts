@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
         const invoiceNumber = `NMA-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
 
         // Build callback URL
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
         const callbackUrl = `${siteUrl}/bn/donation/callback`;
 
         // Sanitize inputs

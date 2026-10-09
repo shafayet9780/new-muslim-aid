@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     user.resetTokenExpiry = resetTokenExpiry;
     await user.save();
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const resetUrl = `${siteUrl}/bn/auth/reset-password?token=${resetToken}`;
 
     // Send email

@@ -63,6 +63,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             name: user.name,
             email: user.email,
             referralCode: user.referralCode,
+            role: user.role ?? 'user',
           };
         } catch (error) {
           throw error;
@@ -75,6 +76,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.referralCode = (user as { referralCode?: string }).referralCode;
+        token.role = (user as { role?: string }).role ?? 'user';
       }
       return token;
     },
@@ -83,6 +85,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = token.id as string;
         (session.user as { referralCode?: string }).referralCode =
           token.referralCode as string;
+        (session.user as { role?: string }).role =
+          (token.role as string) ?? 'user';
       }
       return session;
     },

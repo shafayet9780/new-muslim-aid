@@ -5,6 +5,7 @@ export interface IUser extends Document {
   email: string;
   passwordHash: string;
   referralCode: string;
+  role: 'user' | 'admin';
   isSubscribed: boolean;
   resetToken?: string;
   resetTokenExpiry?: Date;
@@ -36,6 +37,11 @@ const UserSchema = new Schema<IUser>(
       required: true,
       unique: true,
       trim: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
     },
     isSubscribed: {
       type: Boolean,
