@@ -29,6 +29,15 @@ export default async function middleware(request: NextRequest) {
       loginUrl.searchParams.set('callbackUrl', pathname);
       return NextResponse.redirect(loginUrl);
     }
+
+    // admin route শুধুমাত্র admin role এর জন্য
+    const isAdminRoute = /^\/[^/]+\/dashboard\/admin(\/|$)/.test(pathname);
+    if (isAdminRoute) {
+      const role = (session.user as { role?: string })?.role;
+      if (role !== 'admin') {
+        return NextResponse.redirect(new URL(`/${locale}/dashboard/user`, request.url));
+      }
+    }
   }
 
   // Apply next-intl middleware for all other routes

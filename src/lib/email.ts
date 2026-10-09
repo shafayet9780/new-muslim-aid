@@ -101,7 +101,7 @@ function generateInvoiceHTML(params: InvoiceParams): string {
           <tr>
             <td style="padding:24px 40px 0;">
               <p style="color:#374151;font-size:16px;line-height:1.6;margin:0;">
-                প্রিয় <strong>${params.donorName}</strong>,
+                প্রিয় <strong>${escapeHtml(params.donorName)}</strong>,
               </p>
               <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:8px 0 0;">
                 আপনার দানের জন্য আল্লাহ আপনাকে উত্তম প্রতিদান দিন। আপনার লেনদেনের বিবরণ নিচে দেওয়া হলো:
@@ -118,7 +118,7 @@ function generateInvoiceHTML(params: InvoiceParams): string {
                     <table width="100%" cellspacing="0" cellpadding="0">
                       <tr>
                         <td style="color:#6b7280;font-size:14px;">ট্রানজেকশন আইডি</td>
-                        <td style="color:#111827;font-size:14px;font-weight:700;text-align:right;">${params.transactionId}</td>
+                        <td style="color:#111827;font-size:14px;font-weight:700;text-align:right;">${escapeHtml(params.transactionId)}</td>
                       </tr>
                     </table>
                   </td>
@@ -225,7 +225,7 @@ export async function sendPasswordResetEmail(params: PasswordResetParams): Promi
         </tr>
         <tr>
           <td style="padding:40px;">
-            <p style="color:#374151;font-size:16px;line-height:1.6;">প্রিয় <strong>${params.name}</strong>,</p>
+            <p style="color:#374151;font-size:16px;line-height:1.6;">প্রিয় <strong>${escapeHtml(params.name)}</strong>,</p>
             <p style="color:#6b7280;font-size:15px;line-height:1.6;">আপনি পাসওয়ার্ড রিসেটের জন্য অনুরোধ করেছেন। নিচের বাটনে ক্লিক করে নতুন পাসওয়ার্ড সেট করুন:</p>
             <div style="text-align:center;margin:32px 0;">
               <a href="${params.resetUrl}" style="display:inline-block;background:linear-gradient(135deg,#1B4332,#006A4E);color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:12px;font-size:16px;font-weight:700;">পাসওয়ার্ড রিসেট করুন</a>
@@ -299,8 +299,8 @@ export async function sendNudgeEmail(params: NudgeEmailParams): Promise<boolean>
         </tr>
         <tr>
           <td style="padding:40px;">
-            <p style="color:#374151;font-size:16px;line-height:1.6;">প্রিয় <strong>${params.recipientName}</strong>,</p>
-            <p style="color:#6b7280;font-size:15px;line-height:1.6;">আপনার শেয়ার করা সাদকায়ে জারিয়া লিঙ্কের মাধ্যমে <strong>${params.donorName}</strong> এই মাসে <strong style="color:#059669;">${formattedAmount}</strong> দান করেছেন।</p>
+            <p style="color:#374151;font-size:16px;line-height:1.6;">প্রিয় <strong>${escapeHtml(params.recipientName)}</strong>,</p>
+            <p style="color:#6b7280;font-size:15px;line-height:1.6;">আপনার শেয়ার করা সাদকায়ে জারিয়া লিঙ্কের মাধ্যমে <strong>${escapeHtml(params.donorName)}</strong> এই মাসে <strong style="color:#059669;">${formattedAmount}</strong> দান করেছেন।</p>
             <div style="background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1px solid #a7f3d0;border-radius:12px;padding:20px;text-align:center;margin:24px 0;">
               <p style="color:#065f46;font-size:15px;font-weight:600;margin:0 0 4px;">আপনিও কি এই মাসে অংশগ্রহণ করবেন?</p>
               <p style="color:#6b7280;font-size:13px;margin:0;">প্রতিটি দান নওমুসলিমদের জীবন পরিবর্তন করতে সাহায্য করে।</p>
@@ -332,6 +332,129 @@ export async function sendNudgeEmail(params: NudgeEmailParams): Promise<boolean>
     return true;
   } catch (error) {
     console.error('❌ Failed to send nudge email:', error);
+    return false;
+  }
+}
+
+/* ============================================================
+ *  নওমুসলিমদের জন্ম নিবন্ধনে নাম পরিবর্তন সহায়তা অনুরোধ — admin/সংশ্লিষ্ট ঠিকানায় Word ফাইল সহ মেইল
+ * ============================================================ */
+
+/** HTML email এ user input বসানোর আগে escape — HTML injection ঠেকাতে */
+export function escapeHtml(s: string): string {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/** header (subject ইত্যাদি) এর জন্য — CR/LF ও control char বাদ, দৈর্ঘ্য সীমিত */
+function headerSafe(s: string, max = 120): string {
+  // eslint-disable-next-line no-control-regex
+  return s.replace(/[\u0000-\u001F\u007F]+/g, ' ').trim().slice(0, max);
+}
+
+const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
+
+/** env থেকে comma/semicolon/space আলাদা করা বৈধ email list */
+export function getBirthCerReformRecipients(): string[] {
+  const raw = process.env.BIRTH_CERTIFICATE_REFORM_NOTIFY_EMAILS || '';
+  return raw
+    .split(/[,;\s]+/)
+    .map((e) => e.trim())
+    .filter((e) => EMAIL_RE.test(e));
+}
+
+interface BirthCerReformEmailParams {
+  applicantName: string;
+  applicantPhone?: string;
+  applicantEmail?: string;
+  docxBuffer: Buffer;
+  docxFilename: string;
+}
+
+export async function sendBirthCerReformRequestEmail(params: BirthCerReformEmailParams): Promise<boolean> {
+  const recipients = getBirthCerReformRecipients();
+  if (recipients.length === 0) {
+    console.warn('⚠️ NOTIFY_EMAILS সেট করা নেই — info মেইল এ পাঠানো হয়নি');
+    return false;
+  }
+
+  try {
+    const transporter = getTransporter();
+    const fromName = process.env.SMTP_FROM_NAME || 'NewMuslim Aid Foundation';
+    const fromEmail = process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER;
+
+    const name = headerSafe(params.applicantName, 80);
+    const nameHtml = escapeHtml(name);
+    const phoneHtml = params.applicantPhone ? escapeHtml(params.applicantPhone) : '';
+    const emailHtml = params.applicantEmail ? escapeHtml(params.applicantEmail) : '';
+
+    const subject = `জন্ম নিবন্ধনে নাম পরিবর্তন এর অনুরোধ (${name})`;
+
+    const text = [
+      'আসসালামু আলাইকুম ওয়া রাহমাতুল্লাহ,',
+      '',
+      'আমি একজন নওমুসলিম। ধর্ম ও নাম পরিবর্তনের জন্ম নিবন্ধনে নাম পরিবর্তন সংক্রান্ত সহায়তার জন্য আমার প্রয়োজনীয় সকল তথ্য সংযুক্ত ওয়ার্ড ফাইলে প্রদান করা হলো।',
+      'বিষয়টি সদয় বিবেচনাপূর্বক গুরুত্বের সাথে দেখার জন্য বিনীত অনুরোধ করছি।',
+      'আপনাদের পরবর্তী রেসপন্সের অপেক্ষায় রইলাম। জাযাকুমুল্লাহু খাইরান।',
+      '',
+      'বিনীত,',
+      name,
+      params.applicantPhone ? `মোবাইল: ${params.applicantPhone}` : '',
+      params.applicantEmail ? `ইমেইল: ${params.applicantEmail}` : '',
+    ]
+      .filter((l, i, arr) => l !== '' || arr[i - 1] !== '')
+      .join('\n');
+
+    const html = `
+<!DOCTYPE html>
+<html lang="bn">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:24px;background:#f3f4f6;font-family:'Segoe UI',Tahoma,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;padding:32px;color:#374151;font-size:15px;line-height:1.8;">
+    <p style="margin:0 0 16px;">আসসালামু আলাইকুম ওয়া রাহমাতুল্লাহ,</p>
+    <p style="margin:0 0 12px;">আমি একজন নওমুসলিম। ধর্ম ও নাম পরিবর্তনের জন্ম নিবন্ধনে নাম পরিবর্তন সংক্রান্ত সহায়তার জন্য আমার প্রয়োজনীয় সকল তথ্য সংযুক্ত ওয়ার্ড ফাইলে প্রদান করা হলো।</p>
+    <p style="margin:0 0 12px;">বিষয়টি সদয় বিবেচনাপূর্বক গুরুত্বের সাথে দেখার জন্য বিনীত অনুরোধ করছি।</p>
+    <p style="margin:0 0 24px;">আপনাদের পরবর্তী রেসপন্সের অপেক্ষায় রইলাম। জাযাকুমুল্লাহু খাইরান।</p>
+    <p style="margin:0;">বিনীত,<br><strong>${nameHtml}</strong>
+      ${phoneHtml ? `<br>মোবাইল: ${phoneHtml}` : ''}
+      ${emailHtml ? `<br>ইমেইল: ${emailHtml}` : ''}
+    </p>
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0 12px;">
+    <p style="color:#9ca3af;font-size:12px;margin:0;">এই মেইলটি NewMuslim Aid Foundation ওয়েবসাইটের ফর্ম থেকে স্বয়ংক্রিয়ভাবে পাঠানো হয়েছে।</p>
+  </div>
+</body>
+</html>`.trim();
+
+    // replyTo শুধুমাত্র বৈধ email হলে — প্রাপক সরাসরি আবেদনকারীকে উত্তর দিতে পারবেন
+    const replyTo =
+      params.applicantEmail && EMAIL_RE.test(params.applicantEmail)
+        ? params.applicantEmail
+        : undefined;
+
+    await transporter.sendMail({
+      from: `"${fromName}" <${fromEmail}>`,
+      to: recipients,
+      replyTo,
+      subject,
+      text,
+      html,
+      attachments: [
+        {
+          filename: params.docxFilename,
+          content: params.docxBuffer,
+          contentType:
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        },
+      ],
+    });
+
+    return true;
+  } catch (error) {
+    console.error('❌ Failed to send affidavit email:', error);
     return false;
   }
 }
